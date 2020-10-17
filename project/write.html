@@ -1,0 +1,74 @@
+<%
+from bottle import request
+from datetime import *
+usrn = request.forms.get('usrn')
+date = str(datetime.today())
+end
+%>
+
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Online Diary</title>
+  <style type = "text/css">
+      form {
+        width: 200px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+      }
+
+      label {
+        align: center
+        margin: auto;
+        grid-column: 1/2;
+        text-align: right;
+        padding-right: 1em;
+      }
+
+      input {
+        align: center
+        margin: auto;
+        grid-column: 2/3;
+      }
+
+      button {
+        align: center
+        margin: auto;
+        grid-column: 1/3;
+        background-color: lightgray;
+
+    </style>
+</head>
+<body bgcolor = dodgerblue>
+<h1 align  = center>Online Diary</h1></h1>
+      <p align = "center">Write New Entry</p>
+      <form action = "/diary/login/writeB"
+            method = "post" />
+            <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+            <label>
+               Current Date: {{date}}
+            </label></br>
+
+            <textarea name = "entry"
+                      rows = "5"
+                      cols = "80"
+                      placeholder = "Write entry here">
+            </textarea>
+            <button type = "submit">
+                Save Entry
+            </button>
+
+        <form>
+            <button type = "button"
+                    class = "wide"
+                    onclick = "history.go(-1);">
+                Return to last menu
+            </button>
+        </form>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<%
+from bottle import request
+usrn = request.forms.get("usrn")
+data = c.execute("SELECT username FROM users;")
+sq1l = ('What was your favorite place to visit as a child?', 'Who is your favorite actor, musician, or artist?', 'What is the name of your pet?', 'In what city were you born?', 'What high school did you attend?')
+sq2l = ('What is the name of your first school?', 'What is your favorite movie?', 'What is your mother\'s maiden name?', 'What street did you grow up on?', 'What was the make of your first car?')
+
+check = 0
+record = [0, 0]
+for i in data:
+    if i[0] == usrn:
+        check = 1
+    end
+end
+if check == 1:
+    sql = 'SELECT sq1,sq2 FROM users WHERE username = \'{}\''.format(usrn)
+    data = c.execute(sql)
+    for i in data:
+        record = i
+        end
+    end
+end
+%>
+
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Online Diary</title>
+  <style type = "text/css">
+      form {
+        width: 200px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+      }
+
+      label {
+        align: center
+        margin: auto;
+        grid-column: 1/2;
+        text-align: right;
+        padding-right: 1em;
+      }
+
+      input {
+        align: center
+        margin: auto;
+        grid-column: 2/3;
+      }
+
+      button {
+        align: center
+        margin: auto;
+        grid-column: 1/3;
+        background-color: lightgray;
+      }
+
+    </style>
+</head>
+<body bgcolor = dodgerblue>
+<h1 align  = center>Online Diary</h1></h1>
+<form action = '/diary/recoverC'
+          method = 'post'
+          id = 'correct'
+          style = "display:none"
+          >
+        <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+        <label>
+            Question 1: {{sq1l[record[0]]}}
+        </label></br>
+
+        <input type = "text"
+               name = "sq1a"/
+               placeholder = "Answer Here"
+               required></br>
+        <label>
+            Question 2: {{sq2l[record[1]]}}
+        </label></br>
+        <input type = "text"
+               name = "sq2a"
+               placeholder = "Answer here"
+               required/>
+        <button type = "submit">
+            Submit Answers
+            </button>
+        <button type = "button"
+                onclick = "history.go(-1)">
+            Cancel
+        </button>
+    </form>
+    <p id = "incorrect"
+       align = 'center'
+       style = "display:none">
+        The username entered is incorrect
+        </br><a href = "javascript:window.history.go(-1)">Try Again</a>
+    </p>
+    <script>
+        var check
+        check = {{check}}
+        if (check == 0) {
+            document.getElementById("incorrect").style.display = 'block'
+        } else if (check == 1) {
+            document.getElementById("correct").style.display = 'block'
+
+        }
+    </script>
+</body>
+</html>

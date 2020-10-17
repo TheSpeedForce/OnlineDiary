@@ -1,0 +1,121 @@
+<%
+from bottle import request
+
+#get data from forms
+usrn = request.forms.get('usrn')
+
+#SQL query
+sql = 'SELECT username,name FROM users'
+data = c.execute(sql)
+
+#Get name of user from data
+for names in data:
+    if names[0] == usrn:
+        name = names[1]
+    end
+end
+%>
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Online Diary</title>
+ <style type = "text/css">
+      form {
+        width: 200px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+      }
+
+      button {
+        grid-column: 1/3;
+        background-color: lightgray;
+      }
+
+      /* alternate layout for phones */
+      @media (max-width: 600px) {
+        /* form takes entire screen */
+        form {
+          width: 100%;
+        }
+
+        /* make all elements full width of form */
+        button {
+          grid-column: 1/3;
+        }
+
+      }
+    </style>
+</head>
+<body bgcolor = dodgerblue>
+<h1 align  = center>Online Diary</h1>
+<p align = "center">Welcome {{name}}</p>
+    <form action = '/diary/login/read'
+            method = 'post'>
+        <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+        <button type = "submit"
+                class = "wide" />
+                Read past diary entries
+        </button></br>
+    </form>
+    <form action = '/diary/login/write'
+            method = 'post'>
+        <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+        <button type = "submit"
+                class = "wide"/>
+                Write a new diary entry
+        </button></br>
+    </form>
+    <form action = '/diary/login/delete'
+            method = 'post'>
+        <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+        <button type = "submit"
+                class = "wide">
+                Delete an entry
+        </button></br>
+    </form>
+    <form action = '/diary/login/deleteC'
+            method = 'post'>
+        <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+        <button type = "submit"
+                class = "wide">
+                Delete all entries
+        </button></br>
+    </form>
+    <form>
+        <button type = "button"
+                class = "wide"
+                onclick = "document.getElementById('confirm').style.display = 'block'" />
+                Log out
+        </button></br>
+    </form>
+    <form id = "confirm"
+          style = "display:none">
+        <button type = "button"
+                class = "wide"
+                onclick = 'parent.location = "http://paagga.pythonanywhere.com/diary"'>
+                Confirm
+        </button>
+        <button type = "button"
+                class = "wide"
+                onclick = "document.getElementById('confirm').style.display = 'none'">
+                Cancel
+        </button>
+    </form>
+
+</body>
+</html>

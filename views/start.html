@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Body Mass Index</title>
+  <style type = "text/css">
+      form {
+        width: 600px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+      }
+
+      label {
+        grid-column: 1/2;
+        text-align: right;
+        padding-right: 1em;
+      }
+
+      input {
+        grid-column: 2/3;
+      }
+
+      button {
+        grid-column: 1/3;
+        background-color: lightgray;
+      }
+
+      /* alternate layout for phones */
+      @media (max-width: 600px) {
+        /* form takes entire screen */
+        form {
+          width: 100%;
+        }
+
+        /* make all elements full width of form */
+        label, input, button {
+          grid-column: 1/3;
+        }
+
+        /* center text on labels */
+        label {
+          text-align: center;
+        }
+      }
+    </style>
+</head>
+<body bgcolor = mediumslateblue>
+<h1 align  = center>Body Mass Index</h1></h1>
+<form action = "/calculate"
+      method = "post">
+    <fieldset>
+    <label>Weight in Pounds</label><br>
+    <input type = "text"
+           name = "weight" /><br>
+    <label>Height</label><br>
+    <label>Feet</label>
+    <input type = "text"
+           name = "heightFt">
+    <label>Inches</label>
+    <input type = "text"
+           name = "heightIn"><br>
+    <button type = "submit">
+      submit
+    </button>
+  </fieldset>
+
+</form>
+<p><img src = 'https://bmiwiki.com/wp-content/uploads/2018/07/bmi-chart-for-men.jpg' alt = 'bmi chart men'>
+   <img src = 'https://bmiwiki.com/wp-content/uploads/2018/07/bmi-chart-for-women.jpg' alt = 'bmr chart women'>
+   </p>
+</body>
+</html>

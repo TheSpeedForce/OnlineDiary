@@ -1,0 +1,91 @@
+<%
+from bottle import request
+usrn = request.forms.get('usrn')
+data = c.execute("SELECT * FROM {}".format(usrn))
+dates = []
+for records in data:
+    date = records[0]
+    dates += [date]
+    end
+check = len(dates)
+%>
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Online Diary</title>
+  <style type = "text/css">
+      form {
+        width: 200px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+      }
+
+      label {
+        align: center
+        margin: auto;
+        grid-column: 1/2;
+        text-align: right;
+        padding-right: 1em;
+
+      }
+
+      input {
+        align: center
+        margin: auto;
+        grid-column: 2/3;
+      }
+
+      button {
+        align: center
+        margin: auto;
+        grid-column: 1/3;
+        background-color: lightgray;
+
+    </style>
+</head>
+<body bgcolor = dodgerblue>
+<h1 align  = center>Online Diary</h1></h1>
+<p align = "center">Read Entries</p>
+      <form id = "invalid">
+        <label>
+           You have no entries
+        </label>
+        </form>
+      <form  id = "valid"
+            action = "/diary/login/readB"
+            method = "post">
+            <input type = "text"
+               name = "usrn"
+               value = {{usrn}}
+               style = "display:none">
+
+            <select name = "date">
+            %for date in dates:
+              <option value = "{{date}}">{{date}}</option>
+            %end
+            </select>
+
+            <button type = "submit">
+                Read Entry
+            </button>
+        </form>
+        <form>
+            <button type = "button"
+                    class = "wide"
+                    onclick = "history.go(-1);">
+                    Return to last menu
+            </button>
+        </form>
+<script>
+        var check
+        check = {{check}}
+        if (check == 0) {
+            document.getElementById("valid").style.display = 'none'
+        } else if (check > 0) {
+            document.getElementById("invalid").style.display = 'none'
+        }
+</script>
+</body>
+</html>

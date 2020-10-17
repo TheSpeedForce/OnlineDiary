@@ -1,0 +1,52 @@
+<%
+from bottle import request
+import sqlite3
+
+#set up db connection
+diaryDB = sqlite3.connect('./mysite/diary.db')
+diaryC = diaryDB.cursor()
+
+usrn = request.forms.get("usrn")
+pswd = request.forms.get("pswd")
+
+data = diaryC.execute("SELECT username, password FROM users")
+
+check = 0
+for i in data:
+    if i[0] == usrn and i[1] == pswd:
+        check = 1
+    end
+end
+%>
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Test</title>
+</head>
+<body>
+<h1>Test</h1></h1>
+<form>
+    <fieldset>
+    <label>Username</label><br>
+    <input type = "text"
+           name = "usrn"
+           placeholder = "Enter username"><br>
+    <label>Password</label><br>
+    <input type = "text"
+           name = "pswd"
+           placeholder = "Enter password">
+    <button type = "submit" onclick = >
+      Log In
+    </button>
+    </fieldset>
+</form><br>
+<script>function check(){
+            if (check == 1) {
+               window.location.href = "www.google.com"
+              }</script>
+<p>
+    c: {{check}}
+</p>
+</body>
+</html>

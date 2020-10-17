@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <meta charset = "utf-8">
+  <title>Online Diary</title>
+  <style type = "text/css">
+      form {
+        width: 200px;
+        margin: auto;
+        background-color: lightblue;
+        display: grid;
+      }
+
+      label {
+        margin: auto;
+        grid-column: 1/2;
+        text-align: right;
+        padding-right: 1em;
+      }
+
+      input {
+        margin: auto;
+        grid-column: 2/3;
+      }
+
+      button {
+        margin: auto;
+        grid-column: 1/3;
+        background-color: lightgray;
+      }
+
+    </style>
+</head>
+<body bgcolor = dodgerblue>
+<h1 align  = center>Online Diary</h1></h1>
+<form>
+    <button type = "button"
+            class = "wide"
+            onclick = 'document.location.href = "diary/signup"'>
+        Sign Up
+        </button>
+</form><br>
+<p align = center>OR</p><br>
+<form action = "/diary/check"
+      method = "post">
+    <fieldset>
+    <label>Username:</label><br>
+    <input type = "text"
+           name = "usrn"
+           placeholder = "Enter username"
+           required><br>
+    <label>Password:</label><br>
+    <input type = "text"
+           name = "pswd"
+           placeholder = "Enter password"
+           required>
+    <button type = "submit"
+            class = "wide">
+      Log In
+    </button>
+    </fieldset>
+</form><br>
+<p align = center>
+    <a href = "http://paagga.pythonanywhere.com/diary/recover">
+        Forgot Password?
+    </a>
+   </p>
+</body>
+</html>

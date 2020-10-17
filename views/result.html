@@ -1,0 +1,59 @@
+<%
+
+from bottle import request
+
+#get values of height and weight from the form on start.html, store in weight and heightFt and heightIn
+#convert height and weight to integers
+weight = request.forms.get("weight")
+weight = int(weight)
+heightFt = request.forms.get("heightFt")
+heightFt = int(heightFt)
+heightIn = request.forms.get("heightIn")
+heightIn = int(heightIn)
+
+#calculate total height in inches, store in height
+height = (heightFt * 12) + (heightIn)
+
+#calculate BMI, store in bmi
+bmi = ((weight)/(height ** 2)) * 703
+
+#convert to string with 2SD
+bmi = "{:.2f}".format(bmi)
+
+%>
+
+<!DOCTYPE html>
+<html lang = "en-us">
+<head>
+  <title>Calculation Result</title>
+  <meta charset = "utf-8">
+  <style type = "text/css">
+      p {
+        text-align: "center";
+        margin: auto
+        display: grid;
+      }
+
+
+    </style>
+</head>
+
+<body bgcolor = lightcyan >
+  <h1 align = center>Result</h1>
+  <p>BMI: {{ bmi }}</p>
+  <p id = "2" ></p>
+  <script>
+          var bmi
+          bmi = {{ bmi }}
+          if (bmi <= 18.5) {
+              document.getElementById("2").innerHTML = 'Status: Underweight'
+          } else if (bmi > 18.5 && bmi < 25) {
+              document.getElementById("2").innerHTML = 'Status: Normal'
+          } else if (bmi >= 25 && bmi < 30) {
+              document.getElementById("2").innerHTML = 'Status: Overweight'
+          } else {
+              document.getElementById("2").innerHTML = 'Status: Obese'
+          }
+      </script>
+</body>
+</html>
